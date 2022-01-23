@@ -7,7 +7,7 @@ COPY backend/ backend/
 # Copy the wait-script into the working directory
 COPY ./wait.sh /app/
 # Set the permissions for the wait.sh script
-RUN chmod o+rwx wait.sh && chown root:root wait.sh
+RUN chmod u+rwx wait.sh && chown root:root wait.sh
 # Change the working directory to '/app/backend'
 WORKDIR /app/backend
 # Run 'npm install' to install the package
