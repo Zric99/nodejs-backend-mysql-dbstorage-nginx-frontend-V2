@@ -6,7 +6,7 @@ The backend can only be called via an Nginx frontend which is also started as a 
 
 Separating the frontend and backend networks in Docker-Compose.yml ensures that only the frontend, and not the backend or database directly, can be accessed from both the host and other clients.
 
-The environment variables in Docker-Compose.yml can be used to edit the database credential.
+The environment variables in Docker-Compose.yml can be used to edit the database credentials and also in this version to give the database credentials that should be use the the app in backend.
 
 If the ports used here are already in use on the host system, those can be edited in Docker-Compose.yml. It is important to mention that the ports should then also get adjusted in the file 'conf.d/default.conf' at 'proxy_pass'. 
 
