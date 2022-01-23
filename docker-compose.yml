@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  database:
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234567
+      - MYSQL_DATABASE=testdb
+    ports:
+      - 3306:3306
+    networks:
+      - backend
+  backend:
+    depends_on:
+      - database
+    build: .
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      - DB_HOST=database
+      - DB_USER=root
+      - DB_PASSWORD=1234567
+      - DB_NAME=testdb
+      - DB_PORT=3306
+    stdin_open: true
+    tty: true
+    networks:
+      - backend
+  frontend:
+    depends_on:
+      - database
+    image: nginx:latest
+    ports:
+      - 80:80
+    restart: always
+    volumes:
+      - ./conf.d/:/etc/nginx/conf.d/
+    networks: 
+      - backend
+      - frontend
+networks:
+  backend:
+    internal: true
+  frontend:
+    driver: bridge
